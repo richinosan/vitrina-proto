@@ -1,6 +1,7 @@
 version: v2
 modules:
-  - path: .
+  - path: eventapis
+  - path: organizationapis
 lint:
   use:
     - STANDARD
