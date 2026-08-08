@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package organization.v1;
+
+// Organization は Organization リソースの公開表現。
+message Organization {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string image = 5;
+  string url = 6;
+}

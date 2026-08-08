@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package event.v1;
+
+// Event は Event リソースの公開表現。
+message Event {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string start_date = 5;
+  string end_date = 6;
+  string location_json = 7;
+  string event_attendance_mode = 8;
+  string event_status = 9;
+  string image = 10;
+  string url = 11;
+  string organizer_json = 12;
+  EventSummary parent = 14;
+  repeated EventSummary children = 15;
+}
+
+// EventSummary は親子関係の 1 階層埋め込み用。
+message EventSummary {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string start_date = 5;
+  string end_date = 6;
+  string location_json = 7;
+  string event_attendance_mode = 8;
+  string event_status = 9;
+  string image = 10;
+  string url = 11;
+  string organizer_json = 12;
+}

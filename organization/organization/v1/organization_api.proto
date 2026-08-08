@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package organization.v1;
+
+import "organization/v1/organization.proto";
+
+// GetOrganizationRequest は Organization を取得する。
+message GetOrganizationRequest {
+  // name は organizations/{id} 形式。
+  string name = 1;
+}
+
+// ListOrganizationsRequest は Organization 一覧を取得する。
+message ListOrganizationsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListOrganizationsResponse {
+  repeated Organization organizations = 1;
+  string next_page_token = 2;
+}
