@@ -18,16 +18,16 @@ vitrina.organization.v1
 
 ## ドキュメント
 
-各 package 配下の `README.md` を `mise run generate` で生成します。
+各 module 配下の `README.md` を `mise run docs` で生成します。
 
-- `vitrina/event/v1/README.md`
-- `vitrina/organization/v1/README.md`
+- `eventapis/README.md`
+- `organizationapis/README.md`
 
 ## 開発
 
 ```bash
 mise run lint
-mise run generate
+mise run docs
 mise run breaking
 mise run check
 ```
