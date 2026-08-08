@@ -4,9 +4,29 @@ package event.v1;
 
 import "event/v1/event.proto";
 import "event/v1/event_api.proto";
+import "event/v1/rbac.proto";
+import "event/v1/rbac_api.proto";
 
 // EventService は Event API を提供する。
 service EventService {
   rpc GetEvent(GetEventRequest) returns (Event);
   rpc ListEvents(ListEventsRequest) returns (ListEventsResponse);
+}
+
+// RoleAssignmentService は RoleAssignment の参照 API を提供する。
+service RoleAssignmentService {
+  rpc GetRoleAssignment(GetRoleAssignmentRequest) returns (RoleAssignment);
+  rpc ListRoleAssignments(ListRoleAssignmentsRequest) returns (ListRoleAssignmentsResponse);
+}
+
+// RoleService は Role の参照 API を提供する。
+service RoleService {
+  rpc GetRole(GetRoleRequest) returns (Role);
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse);
+}
+
+// PermissionService は Permission の参照 API を提供する。
+service PermissionService {
+  rpc GetPermission(GetPermissionRequest) returns (Permission);
+  rpc ListPermissions(ListPermissionsRequest) returns (ListPermissionsResponse);
 }

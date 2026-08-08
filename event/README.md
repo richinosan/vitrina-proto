@@ -12,8 +12,29 @@
     - [ListEventsRequest](#event-v1-ListEventsRequest)
     - [ListEventsResponse](#event-v1-ListEventsResponse)
   
+- [event/v1/rbac.proto](#event_v1_rbac-proto)
+    - [Permission](#event-v1-Permission)
+    - [Role](#event-v1-Role)
+    - [RoleAssignment](#event-v1-RoleAssignment)
+  
+    - [RoleAssignmentScopeType](#event-v1-RoleAssignmentScopeType)
+  
+- [event/v1/rbac_api.proto](#event_v1_rbac_api-proto)
+    - [GetPermissionRequest](#event-v1-GetPermissionRequest)
+    - [GetRoleAssignmentRequest](#event-v1-GetRoleAssignmentRequest)
+    - [GetRoleRequest](#event-v1-GetRoleRequest)
+    - [ListPermissionsRequest](#event-v1-ListPermissionsRequest)
+    - [ListPermissionsResponse](#event-v1-ListPermissionsResponse)
+    - [ListRoleAssignmentsRequest](#event-v1-ListRoleAssignmentsRequest)
+    - [ListRoleAssignmentsResponse](#event-v1-ListRoleAssignmentsResponse)
+    - [ListRolesRequest](#event-v1-ListRolesRequest)
+    - [ListRolesResponse](#event-v1-ListRolesResponse)
+  
 - [event/v1/api.proto](#event_v1_api-proto)
     - [EventService](#event-v1-EventService)
+    - [PermissionService](#event-v1-PermissionService)
+    - [RoleAssignmentService](#event-v1-RoleAssignmentService)
+    - [RoleService](#event-v1-RoleService)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -152,6 +173,250 @@ ListEventsRequest はイベント一覧を取得する。
 
 
 
+<a name="event_v1_rbac-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/rbac.proto
+
+
+
+<a name="event-v1-Permission"></a>
+
+### Permission
+Permission は resource &#43; action による権限。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（permissions/{id}）。 |
+| id | [string](#string) |  |  |
+| resource | [string](#string) |  |  |
+| action | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-Role"></a>
+
+### Role
+Role は Role 定義。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（roles/{id}）。 |
+| id | [string](#string) |  |  |
+| display_name | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-RoleAssignment"></a>
+
+### RoleAssignment
+RoleAssignment は Person への Role 割当。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（roleAssignments/{id}）。 |
+| id | [string](#string) |  |  |
+| person | [string](#string) |  | persons/{id} |
+| role | [string](#string) |  | roles/{id} |
+| scope_type | [RoleAssignmentScopeType](#event-v1-RoleAssignmentScopeType) |  |  |
+| scope | [string](#string) |  | events/{id} または organizations/{id}。SYSTEM scope では未設定。 |
+
+
+
+
+
+ 
+
+
+<a name="event-v1-RoleAssignmentScopeType"></a>
+
+### RoleAssignmentScopeType
+RoleAssignmentScopeType は RoleAssignment の scope 種別。
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| ROLE_ASSIGNMENT_SCOPE_TYPE_UNSPECIFIED | 0 |  |
+| ROLE_ASSIGNMENT_SCOPE_TYPE_SYSTEM | 1 |  |
+| ROLE_ASSIGNMENT_SCOPE_TYPE_EVENT | 2 |  |
+| ROLE_ASSIGNMENT_SCOPE_TYPE_ORGANIZATION | 3 |  |
+
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="event_v1_rbac_api-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/rbac_api.proto
+
+
+
+<a name="event-v1-GetPermissionRequest"></a>
+
+### GetPermissionRequest
+GetPermissionRequest は Permission を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（permissions/{id}）。 |
+
+
+
+
+
+
+<a name="event-v1-GetRoleAssignmentRequest"></a>
+
+### GetRoleAssignmentRequest
+GetRoleAssignmentRequest は RoleAssignment を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（roleAssignments/{id}）。 |
+
+
+
+
+
+
+<a name="event-v1-GetRoleRequest"></a>
+
+### GetRoleRequest
+GetRoleRequest は Role を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | リソース名（roles/{id}）。 |
+
+
+
+
+
+
+<a name="event-v1-ListPermissionsRequest"></a>
+
+### ListPermissionsRequest
+ListPermissionsRequest は Permission 一覧を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| page_size | [int32](#int32) |  |  |
+| page_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-ListPermissionsResponse"></a>
+
+### ListPermissionsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| permissions | [Permission](#event-v1-Permission) | repeated |  |
+| next_page_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-ListRoleAssignmentsRequest"></a>
+
+### ListRoleAssignmentsRequest
+ListRoleAssignmentsRequest は RoleAssignment 一覧を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| parent | [string](#string) |  | 親リソース（events/{id} または organizations/{id}）。 |
+| page_size | [int32](#int32) |  |  |
+| page_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-ListRoleAssignmentsResponse"></a>
+
+### ListRoleAssignmentsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| role_assignments | [RoleAssignment](#event-v1-RoleAssignment) | repeated |  |
+| next_page_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-ListRolesRequest"></a>
+
+### ListRolesRequest
+ListRolesRequest は Role 一覧を取得する。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| page_size | [int32](#int32) |  |  |
+| page_token | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="event-v1-ListRolesResponse"></a>
+
+### ListRolesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| roles | [Role](#event-v1-Role) | repeated |  |
+| next_page_token | [string](#string) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="event_v1_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -174,6 +439,39 @@ EventService は Event API を提供する。
 | ----------- | ------------ | ------------- | ------------|
 | GetEvent | [GetEventRequest](#event-v1-GetEventRequest) | [Event](#event-v1-Event) |  |
 | ListEvents | [ListEventsRequest](#event-v1-ListEventsRequest) | [ListEventsResponse](#event-v1-ListEventsResponse) |  |
+
+
+<a name="event-v1-PermissionService"></a>
+
+### PermissionService
+PermissionService は Permission の参照 API を提供する。
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetPermission | [GetPermissionRequest](#event-v1-GetPermissionRequest) | [Permission](#event-v1-Permission) |  |
+| ListPermissions | [ListPermissionsRequest](#event-v1-ListPermissionsRequest) | [ListPermissionsResponse](#event-v1-ListPermissionsResponse) |  |
+
+
+<a name="event-v1-RoleAssignmentService"></a>
+
+### RoleAssignmentService
+RoleAssignmentService は RoleAssignment の参照 API を提供する。
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetRoleAssignment | [GetRoleAssignmentRequest](#event-v1-GetRoleAssignmentRequest) | [RoleAssignment](#event-v1-RoleAssignment) |  |
+| ListRoleAssignments | [ListRoleAssignmentsRequest](#event-v1-ListRoleAssignmentsRequest) | [ListRoleAssignmentsResponse](#event-v1-ListRoleAssignmentsResponse) |  |
+
+
+<a name="event-v1-RoleService"></a>
+
+### RoleService
+RoleService は Role の参照 API を提供する。
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetRole | [GetRoleRequest](#event-v1-GetRoleRequest) | [Role](#event-v1-Role) |  |
+| ListRoles | [ListRolesRequest](#event-v1-ListRolesRequest) | [ListRolesResponse](#event-v1-ListRolesResponse) |  |
 
  
 
