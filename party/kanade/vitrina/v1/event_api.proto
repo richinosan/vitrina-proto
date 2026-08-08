@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package party.kanade.vitrina.v1;
+
+import "party/kanade/vitrina/v1/event.proto";
+
+// GetEventRequest は公開 Event を取得する。
+message GetEventRequest {
+  // name は events/{id} 形式。
+  string name = 1;
+}
+
+// ListEventsRequest は公開 Event 一覧を取得する。
+message ListEventsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListEventsResponse {
+  repeated PublicEvent events = 1;
+  string next_page_token = 2;
+}
+
+// PublicEventService は read-oriented な公開 Event API。
+service PublicEventService {
+  rpc GetEvent(GetEventRequest) returns (PublicEvent);
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse);
+}

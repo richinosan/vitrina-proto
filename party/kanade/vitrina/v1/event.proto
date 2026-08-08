@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package party.kanade.vitrina.v1;
+
+// PublicEvent は他サービス向けに公開可能な Event 表現。
+// schema.org Event を参考にし、管理専用情報は含めない。
+message PublicEvent {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string start_date = 5;
+  string end_date = 6;
+  string location_json = 7;
+  string event_attendance_mode = 8;
+  string event_status = 9;
+  string image = 10;
+  string url = 11;
+  string organizer_json = 12;
+  PublicEventSummary parent = 13;
+  repeated PublicEventSummary children = 14;
+}
+
+// PublicEventSummary は親子関係の 1 階層埋め込み用。
+message PublicEventSummary {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string start_date = 5;
+  string end_date = 6;
+  string location_json = 7;
+  string event_attendance_mode = 8;
+  string event_status = 9;
+  string image = 10;
+  string url = 11;
+  string organizer_json = 12;
+}
