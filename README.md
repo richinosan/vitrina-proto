@@ -2,7 +2,7 @@
 
 Vitrina の public API contract を管理する repository です。
 
-ConnectRPC の URL は private 実装と同一です（例: `/event.v1.EventService/GetEvent`）。
+サイト表示用ではなく、適切な権限を持つ別サービスとの連携用です。ConnectRPC の URL は private 実装と同一です（例: `/event.v1.EventService/GetEvent`）。
 
 ## Packages
 
@@ -10,6 +10,8 @@ ConnectRPC の URL は private 実装と同一です（例: `/event.v1.EventServ
 event.v1
 organization.v1
 ```
+
+`event.v1` には Event 参照と RBAC 参照（Get / List のみ）を含めます。
 
 ## Layout
 
