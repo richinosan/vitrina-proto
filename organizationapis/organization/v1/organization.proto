@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package vitrina.organization.v1;
+package organization.v1;
 
-// PublicOrganization は公開 Organization 表現。
-message PublicOrganization {
+// Organization は Organization リソースの公開表現。
+message Organization {
   string id = 1;
   string schema_type = 2;
   string name = 3;

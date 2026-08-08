@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package vitrina.event.v1;
+package event.v1;
 
-// PublicEvent は公開 Event 表現。
-message PublicEvent {
+// Event は Event リソースの公開表現。
+message Event {
   string id = 1;
   string schema_type = 2;
   string name = 3;
@@ -16,12 +16,12 @@ message PublicEvent {
   string image = 10;
   string url = 11;
   string organizer_json = 12;
-  PublicEventSummary parent = 13;
-  repeated PublicEventSummary children = 14;
+  EventSummary parent = 14;
+  repeated EventSummary children = 15;
 }
 
-// PublicEventSummary は親子関係の 1 階層埋め込み用。
-message PublicEventSummary {
+// EventSummary は親子関係の 1 階層埋め込み用。
+message EventSummary {
   string id = 1;
   string schema_type = 2;
   string name = 3;

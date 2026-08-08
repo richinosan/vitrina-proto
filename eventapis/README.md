@@ -3,32 +3,33 @@
 
 ## Table of Contents
 
-- [vitrina/event/v1/event.proto](#vitrina_event_v1_event-proto)
-    - [PublicEvent](#vitrina-event-v1-PublicEvent)
-    - [PublicEventSummary](#vitrina-event-v1-PublicEventSummary)
+- [event/v1/event.proto](#event_v1_event-proto)
+    - [Event](#event-v1-Event)
+    - [EventSummary](#event-v1-EventSummary)
   
-- [vitrina/event/v1/event_api.proto](#vitrina_event_v1_event_api-proto)
-    - [GetEventRequest](#vitrina-event-v1-GetEventRequest)
-    - [ListEventsRequest](#vitrina-event-v1-ListEventsRequest)
-    - [ListEventsResponse](#vitrina-event-v1-ListEventsResponse)
+- [event/v1/event_api.proto](#event_v1_event_api-proto)
+    - [GetEventRequest](#event-v1-GetEventRequest)
+    - [ListEventsRequest](#event-v1-ListEventsRequest)
+    - [ListEventsResponse](#event-v1-ListEventsResponse)
   
-    - [PublicEventService](#vitrina-event-v1-PublicEventService)
+- [event/v1/api.proto](#event_v1_api-proto)
+    - [EventService](#event-v1-EventService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="vitrina_event_v1_event-proto"></a>
+<a name="event_v1_event-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/event/v1/event.proto
+## event/v1/event.proto
 
 
 
-<a name="vitrina-event-v1-PublicEvent"></a>
+<a name="event-v1-Event"></a>
 
-### PublicEvent
-PublicEvent は公開 Event 表現。
+### Event
+Event は Event リソースの公開表現。
 
 
 | Field | Type | Label | Description |
@@ -45,18 +46,18 @@ PublicEvent は公開 Event 表現。
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | organizer_json | [string](#string) |  |  |
-| parent | [PublicEventSummary](#vitrina-event-v1-PublicEventSummary) |  |  |
-| children | [PublicEventSummary](#vitrina-event-v1-PublicEventSummary) | repeated |  |
+| parent | [EventSummary](#event-v1-EventSummary) |  |  |
+| children | [EventSummary](#event-v1-EventSummary) | repeated |  |
 
 
 
 
 
 
-<a name="vitrina-event-v1-PublicEventSummary"></a>
+<a name="event-v1-EventSummary"></a>
 
-### PublicEventSummary
-PublicEventSummary は親子関係の 1 階層埋め込み用。
+### EventSummary
+EventSummary は親子関係の 1 階層埋め込み用。
 
 
 | Field | Type | Label | Description |
@@ -88,17 +89,17 @@ PublicEventSummary は親子関係の 1 階層埋め込み用。
 
 
 
-<a name="vitrina_event_v1_event_api-proto"></a>
+<a name="event_v1_event_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/event/v1/event_api.proto
+## event/v1/event_api.proto
 
 
 
-<a name="vitrina-event-v1-GetEventRequest"></a>
+<a name="event-v1-GetEventRequest"></a>
 
 ### GetEventRequest
-GetEventRequest は公開 Event を取得する。
+GetEventRequest はイベントを取得する。
 
 
 | Field | Type | Label | Description |
@@ -110,10 +111,10 @@ GetEventRequest は公開 Event を取得する。
 
 
 
-<a name="vitrina-event-v1-ListEventsRequest"></a>
+<a name="event-v1-ListEventsRequest"></a>
 
 ### ListEventsRequest
-ListEventsRequest は公開 Event 一覧を取得する。
+ListEventsRequest はイベント一覧を取得する。
 
 
 | Field | Type | Label | Description |
@@ -126,7 +127,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 
 
-<a name="vitrina-event-v1-ListEventsResponse"></a>
+<a name="event-v1-ListEventsResponse"></a>
 
 ### ListEventsResponse
 
@@ -134,7 +135,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| events | [PublicEvent](#vitrina-event-v1-PublicEvent) | repeated |  |
+| events | [Event](#event-v1-Event) | repeated |  |
 | next_page_token | [string](#string) |  |  |
 
 
@@ -147,16 +148,32 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
  
 
+ 
 
-<a name="vitrina-event-v1-PublicEventService"></a>
 
-### PublicEventService
-PublicEventService は read-oriented な公開 Event API。
+
+<a name="event_v1_api-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/api.proto
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="event-v1-EventService"></a>
+
+### EventService
+EventService は Event API を提供する。
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetEvent | [GetEventRequest](#vitrina-event-v1-GetEventRequest) | [PublicEvent](#vitrina-event-v1-PublicEvent) |  |
-| ListEvents | [ListEventsRequest](#vitrina-event-v1-ListEventsRequest) | [ListEventsResponse](#vitrina-event-v1-ListEventsResponse) |  |
+| GetEvent | [GetEventRequest](#event-v1-GetEventRequest) | [Event](#event-v1-Event) |  |
+| ListEvents | [ListEventsRequest](#event-v1-ListEventsRequest) | [ListEventsResponse](#event-v1-ListEventsResponse) |  |
 
  
 
