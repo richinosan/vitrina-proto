@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package vitrina.v1;
+package event.public.v1;
 
 // PublicEvent は公開 Event 表現。
 message PublicEvent {

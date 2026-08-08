@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package vitrina.v1;
+package organization.public.v1;
 
 // PublicOrganization は公開 Organization 表現。
 message PublicOrganization {
