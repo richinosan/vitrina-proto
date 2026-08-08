@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package event.v1;
+
+import "event/v1/event.proto";
+
+// GetEventRequest はイベントを取得する。
+message GetEventRequest {
+  // name は events/{id} 形式。
+  string name = 1;
+}
+
+// ListEventsRequest はイベント一覧を取得する。
+message ListEventsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListEventsResponse {
+  repeated Event events = 1;
+  string next_page_token = 2;
+}

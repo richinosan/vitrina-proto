@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package event.v1;
+
+import "event/v1/rbac.proto";
+
+// GetRoleAssignmentRequest は RoleAssignment を取得する。
+message GetRoleAssignmentRequest {
+  // リソース名（roleAssignments/{id}）。
+  string name = 1;
+}
+
+// ListRoleAssignmentsRequest は RoleAssignment 一覧を取得する。
+message ListRoleAssignmentsRequest {
+  // 親リソース（events/{id} または organizations/{id}）。
+  string parent = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListRoleAssignmentsResponse {
+  repeated RoleAssignment role_assignments = 1;
+  string next_page_token = 2;
+}
+
+// GetRoleRequest は Role を取得する。
+message GetRoleRequest {
+  // リソース名（roles/{id}）。
+  string name = 1;
+}
+
+// ListRolesRequest は Role 一覧を取得する。
+message ListRolesRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListRolesResponse {
+  repeated Role roles = 1;
+  string next_page_token = 2;
+}
+
+// GetPermissionRequest は Permission を取得する。
+message GetPermissionRequest {
+  // リソース名（permissions/{id}）。
+  string name = 1;
+}
+
+// ListPermissionsRequest は Permission 一覧を取得する。
+message ListPermissionsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListPermissionsResponse {
+  repeated Permission permissions = 1;
+  string next_page_token = 2;
+}

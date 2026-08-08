@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package event.v1;
+
+// Role は Role 定義。
+message Role {
+  // リソース名（roles/{id}）。
+  string name = 1;
+  string id = 2;
+  string display_name = 3;
+  string description = 4;
+}
+
+// Permission は resource + action による権限。
+message Permission {
+  // リソース名（permissions/{id}）。
+  string name = 1;
+  string id = 2;
+  string resource = 3;
+  string action = 4;
+}
+
+// RoleAssignmentScopeType は RoleAssignment の scope 種別。
+enum RoleAssignmentScopeType {
+  ROLE_ASSIGNMENT_SCOPE_TYPE_UNSPECIFIED = 0;
+  ROLE_ASSIGNMENT_SCOPE_TYPE_SYSTEM = 1;
+  ROLE_ASSIGNMENT_SCOPE_TYPE_EVENT = 2;
+  ROLE_ASSIGNMENT_SCOPE_TYPE_ORGANIZATION = 3;
+}
+
+// RoleAssignment は Person への Role 割当。
+message RoleAssignment {
+  // リソース名（roleAssignments/{id}）。
+  string name = 1;
+  string id = 2;
+  // persons/{id}
+  string person = 3;
+  // roles/{id}
+  string role = 4;
+  RoleAssignmentScopeType scope_type = 5;
+  // events/{id} または organizations/{id}。SYSTEM scope では未設定。
+  string scope = 6;
+}
