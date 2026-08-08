@@ -1,8 +1,6 @@
 # vitrina-proto
 
-Vitrina の **public API contract** を管理する repository です。
-
-admin / internal API とは分離し、他サービス（CMS / SNS 等）が依存可能な read-oriented contract のみを公開します。
+Vitrina の public API contract を管理する repository です。
 
 ## Package
 
@@ -10,40 +8,22 @@ admin / internal API とは分離し、他サービス（CMS / SNS 等）が依�
 party.kanade.vitrina.v1
 ```
 
-## Public Resources
+## Resources
 
 | Resource | RPC |
 |---|---|
 | `PublicEvent` | `GetEvent`, `ListEvents` |
 | `PublicOrganization` | `GetOrganization`, `ListOrganizations` |
 
-## Public に含めないもの
+## ドキュメント
 
-以下は admin / internal contract（`richinosan/vitrina` リポジトリ内 proto）に残します。
+`PROTO.md` は `mise run generate` で生成します。
 
-* RBAC (`Role`, `Permission`, `RoleAssignment`)
-* `SchemaPublicationSettings` / `hidden_properties`
-* Event / Organization の mutation RPC
-* `Person` / 認証コンテキスト
-* audit / internal status / administrative metadata
-
-## Backend 実装状況
-
-| RPC | vitrina backend |
-|---|---|
-| `GetEvent` | 未実装（public read service として今後追加） |
-| `ListEvents` | 未実装 |
-| `GetOrganization` | 未実装（Organization domain 未実装） |
-| `ListOrganizations` | 未実装 |
-
-本 repository は contract の正本です。RPC endpoint の認証要否は Backend 実装側で決定します。
-
-```text
-public proto != anonymous public endpoint
-```
-
-## Lint
+## 開発
 
 ```bash
 mise run lint
+mise run generate
+mise run breaking
+mise run check
 ```

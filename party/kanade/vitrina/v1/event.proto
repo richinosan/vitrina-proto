@@ -2,8 +2,7 @@ syntax = "proto3";
 
 package party.kanade.vitrina.v1;
 
-// PublicEvent は他サービス向けに公開可能な Event 表現。
-// schema.org Event を参考にし、管理専用情報は含めない。
+// PublicEvent は公開 Event 表現。
 message PublicEvent {
   string id = 1;
   string schema_type = 2;
