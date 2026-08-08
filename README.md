@@ -2,22 +2,26 @@
 
 Vitrina の public API contract を管理する repository です。
 
-## Package
+## Packages
 
 ```text
-vitrina.v1
+event.public.v1
+organization.public.v1
 ```
 
 ## Resources
 
-| Resource | RPC |
-|---|---|
-| `PublicEvent` | `GetEvent`, `ListEvents` |
-| `PublicOrganization` | `GetOrganization`, `ListOrganizations` |
+| Package | Resource | RPC |
+|---|---|---|
+| `event.public.v1` | `PublicEvent` | `GetEvent`, `ListEvents` |
+| `organization.public.v1` | `PublicOrganization` | `GetOrganization`, `ListOrganizations` |
 
 ## ドキュメント
 
-`PROTO.md` は `mise run generate` で生成します。
+各 package 配下の `README.md` を `mise run generate` で生成します。
+
+- `event/public/v1/README.md`
+- `organization/public/v1/README.md`
 
 ## 開発
 

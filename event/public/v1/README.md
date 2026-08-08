@@ -3,39 +3,29 @@
 
 ## Table of Contents
 
-- [vitrina/v1/event.proto](#vitrina_v1_event-proto)
-    - [PublicEvent](#vitrina-v1-PublicEvent)
-    - [PublicEventSummary](#vitrina-v1-PublicEventSummary)
+- [event/public/v1/event.proto](#event_public_v1_event-proto)
+    - [PublicEvent](#event-public-v1-PublicEvent)
+    - [PublicEventSummary](#event-public-v1-PublicEventSummary)
   
-- [vitrina/v1/event_api.proto](#vitrina_v1_event_api-proto)
-    - [GetEventRequest](#vitrina-v1-GetEventRequest)
-    - [ListEventsRequest](#vitrina-v1-ListEventsRequest)
-    - [ListEventsResponse](#vitrina-v1-ListEventsResponse)
+- [event/public/v1/event_api.proto](#event_public_v1_event_api-proto)
+    - [GetEventRequest](#event-public-v1-GetEventRequest)
+    - [ListEventsRequest](#event-public-v1-ListEventsRequest)
+    - [ListEventsResponse](#event-public-v1-ListEventsResponse)
   
-    - [PublicEventService](#vitrina-v1-PublicEventService)
-  
-- [vitrina/v1/organization.proto](#vitrina_v1_organization-proto)
-    - [PublicOrganization](#vitrina-v1-PublicOrganization)
-  
-- [vitrina/v1/organization_api.proto](#vitrina_v1_organization_api-proto)
-    - [GetOrganizationRequest](#vitrina-v1-GetOrganizationRequest)
-    - [ListOrganizationsRequest](#vitrina-v1-ListOrganizationsRequest)
-    - [ListOrganizationsResponse](#vitrina-v1-ListOrganizationsResponse)
-  
-    - [PublicOrganizationService](#vitrina-v1-PublicOrganizationService)
+    - [PublicEventService](#event-public-v1-PublicEventService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="vitrina_v1_event-proto"></a>
+<a name="event_public_v1_event-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/v1/event.proto
+## event/public/v1/event.proto
 
 
 
-<a name="vitrina-v1-PublicEvent"></a>
+<a name="event-public-v1-PublicEvent"></a>
 
 ### PublicEvent
 PublicEvent は公開 Event 表現。
@@ -55,15 +45,15 @@ PublicEvent は公開 Event 表現。
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | organizer_json | [string](#string) |  |  |
-| parent | [PublicEventSummary](#vitrina-v1-PublicEventSummary) |  |  |
-| children | [PublicEventSummary](#vitrina-v1-PublicEventSummary) | repeated |  |
+| parent | [PublicEventSummary](#event-public-v1-PublicEventSummary) |  |  |
+| children | [PublicEventSummary](#event-public-v1-PublicEventSummary) | repeated |  |
 
 
 
 
 
 
-<a name="vitrina-v1-PublicEventSummary"></a>
+<a name="event-public-v1-PublicEventSummary"></a>
 
 ### PublicEventSummary
 PublicEventSummary は親子関係の 1 階層埋め込み用。
@@ -98,14 +88,14 @@ PublicEventSummary は親子関係の 1 階層埋め込み用。
 
 
 
-<a name="vitrina_v1_event_api-proto"></a>
+<a name="event_public_v1_event_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/v1/event_api.proto
+## event/public/v1/event_api.proto
 
 
 
-<a name="vitrina-v1-GetEventRequest"></a>
+<a name="event-public-v1-GetEventRequest"></a>
 
 ### GetEventRequest
 GetEventRequest は公開 Event を取得する。
@@ -120,7 +110,7 @@ GetEventRequest は公開 Event を取得する。
 
 
 
-<a name="vitrina-v1-ListEventsRequest"></a>
+<a name="event-public-v1-ListEventsRequest"></a>
 
 ### ListEventsRequest
 ListEventsRequest は公開 Event 一覧を取得する。
@@ -136,7 +126,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 
 
-<a name="vitrina-v1-ListEventsResponse"></a>
+<a name="event-public-v1-ListEventsResponse"></a>
 
 ### ListEventsResponse
 
@@ -144,7 +134,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| events | [PublicEvent](#vitrina-v1-PublicEvent) | repeated |  |
+| events | [PublicEvent](#event-public-v1-PublicEvent) | repeated |  |
 | next_page_token | [string](#string) |  |  |
 
 
@@ -158,125 +148,15 @@ ListEventsRequest は公開 Event 一覧を取得する。
  
 
 
-<a name="vitrina-v1-PublicEventService"></a>
+<a name="event-public-v1-PublicEventService"></a>
 
 ### PublicEventService
 PublicEventService は read-oriented な公開 Event API。
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetEvent | [GetEventRequest](#vitrina-v1-GetEventRequest) | [PublicEvent](#vitrina-v1-PublicEvent) |  |
-| ListEvents | [ListEventsRequest](#vitrina-v1-ListEventsRequest) | [ListEventsResponse](#vitrina-v1-ListEventsResponse) |  |
-
- 
-
-
-
-<a name="vitrina_v1_organization-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## vitrina/v1/organization.proto
-
-
-
-<a name="vitrina-v1-PublicOrganization"></a>
-
-### PublicOrganization
-PublicOrganization は公開 Organization 表現。
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
-| schema_type | [string](#string) |  |  |
-| name | [string](#string) |  |  |
-| description | [string](#string) |  |  |
-| image | [string](#string) |  |  |
-| url | [string](#string) |  |  |
-
-
-
-
-
- 
-
- 
-
- 
-
- 
-
-
-
-<a name="vitrina_v1_organization_api-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## vitrina/v1/organization_api.proto
-
-
-
-<a name="vitrina-v1-GetOrganizationRequest"></a>
-
-### GetOrganizationRequest
-GetOrganizationRequest は公開 Organization を取得する。
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  | name は organizations/{id} 形式。 |
-
-
-
-
-
-
-<a name="vitrina-v1-ListOrganizationsRequest"></a>
-
-### ListOrganizationsRequest
-ListOrganizationsRequest は公開 Organization 一覧を取得する。
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| page_size | [int32](#int32) |  |  |
-| page_token | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="vitrina-v1-ListOrganizationsResponse"></a>
-
-### ListOrganizationsResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| organizations | [PublicOrganization](#vitrina-v1-PublicOrganization) | repeated |  |
-| next_page_token | [string](#string) |  |  |
-
-
-
-
-
- 
-
- 
-
- 
-
-
-<a name="vitrina-v1-PublicOrganizationService"></a>
-
-### PublicOrganizationService
-PublicOrganizationService は read-oriented な公開 Organization API。
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| GetOrganization | [GetOrganizationRequest](#vitrina-v1-GetOrganizationRequest) | [PublicOrganization](#vitrina-v1-PublicOrganization) |  |
-| ListOrganizations | [ListOrganizationsRequest](#vitrina-v1-ListOrganizationsRequest) | [ListOrganizationsResponse](#vitrina-v1-ListOrganizationsResponse) |  |
+| GetEvent | [GetEventRequest](#event-public-v1-GetEventRequest) | [PublicEvent](#event-public-v1-PublicEvent) |  |
+| ListEvents | [ListEventsRequest](#event-public-v1-ListEventsRequest) | [ListEventsResponse](#event-public-v1-ListEventsResponse) |  |
 
  
 

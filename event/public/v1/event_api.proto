@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package vitrina.v1;
+package event.public.v1;
 
-import "vitrina/v1/event.proto";
+import "event/public/v1/event.proto";
 
 // GetEventRequest は公開 Event を取得する。
 message GetEventRequest {
