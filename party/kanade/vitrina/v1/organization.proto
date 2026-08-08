@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package party.kanade.vitrina.v1;
+
+// PublicOrganization は他サービス向けに公開可能な Organization 表現。
+// Backend 実装前の public contract として定義する。
+message PublicOrganization {
+  string id = 1;
+  string schema_type = 2;
+  string name = 3;
+  string description = 4;
+  string image = 5;
+  string url = 6;
+}
