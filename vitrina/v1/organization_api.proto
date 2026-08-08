@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package party.kanade.vitrina.v1;
+package vitrina.v1;
 
-import "party/kanade/vitrina/v1/organization.proto";
+import "vitrina/v1/organization.proto";
 
 // GetOrganizationRequest は公開 Organization を取得する。
 message GetOrganizationRequest {

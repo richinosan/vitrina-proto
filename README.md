@@ -5,7 +5,7 @@ Vitrina の public API contract を管理する repository です。
 ## Package
 
 ```text
-party.kanade.vitrina.v1
+vitrina.v1
 ```
 
 ## Resources
