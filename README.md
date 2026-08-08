@@ -11,19 +11,20 @@ event.v1
 organization.v1
 ```
 
-## Resources
+## Layout
 
-| Package | Resource | RPC |
-|---|---|---|
-| `event.v1` | `Event` | `GetEvent`, `ListEvents` |
-| `organization.v1` | `Organization` | `GetOrganization`, `ListOrganizations` |
+```text
+event/
+  buf.gen.yaml
+  event/v1/*.proto
+organization/
+  buf.gen.yaml
+  organization/v1/*.proto
+```
 
 ## ドキュメント
 
 各 module 配下の `README.md` を `mise run docs` で生成します。
-
-- `eventapis/README.md`
-- `organizationapis/README.md`
 
 ## 開発
 
