@@ -1,6 +1,6 @@
       - name: Check generated docs are up to date
         run: |
-          if ! git diff --exit-code event/public/v1/README.md organization/public/v1/README.md; then
+          if ! git diff --exit-code vitrina/event/v1/README.md vitrina/organization/v1/README.md; then
             echo "Generated docs are out of date. Run mise run generate and commit."
             exit 1
           fi

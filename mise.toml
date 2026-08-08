@@ -5,8 +5,8 @@ buf = "1.72.0"
 [tasks.generate]
 description = "protoc-gen-doc でドキュメントを生成する"
 run = [
-  "buf generate --template buf.gen.event.yaml --path event/public/v1",
-  "buf generate --template buf.gen.organization.yaml --path organization/public/v1",
+  "buf generate --template buf.gen.event.yaml --path vitrina/event/v1",
+  "buf generate --template buf.gen.organization.yaml --path vitrina/organization/v1",
 ]
 
 [tasks.docs]

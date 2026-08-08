@@ -1,5 +1,5 @@
 version: v2
 plugins:
   - local: protoc-gen-doc
-    out: event/public/v1
+    out: vitrina/event/v1
     opt: markdown,README.md
