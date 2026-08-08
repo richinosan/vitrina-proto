@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package organization.v1;
+
+import "organization/v1/organization.proto";
+import "organization/v1/organization_api.proto";
+
+// OrganizationService は Organization API を提供する。
+service OrganizationService {
+  rpc GetOrganization(GetOrganizationRequest) returns (Organization);
+  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse);
+}

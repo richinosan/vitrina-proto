@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package event.v1;
+
+import "event/v1/event.proto";
+import "event/v1/event_api.proto";
+
+// EventService は Event API を提供する。
+service EventService {
+  rpc GetEvent(GetEventRequest) returns (Event);
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse);
+}

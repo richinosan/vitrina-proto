@@ -3,31 +3,32 @@
 
 ## Table of Contents
 
-- [vitrina/organization/v1/organization.proto](#vitrina_organization_v1_organization-proto)
-    - [PublicOrganization](#vitrina-organization-v1-PublicOrganization)
+- [organization/v1/organization.proto](#organization_v1_organization-proto)
+    - [Organization](#organization-v1-Organization)
   
-- [vitrina/organization/v1/organization_api.proto](#vitrina_organization_v1_organization_api-proto)
-    - [GetOrganizationRequest](#vitrina-organization-v1-GetOrganizationRequest)
-    - [ListOrganizationsRequest](#vitrina-organization-v1-ListOrganizationsRequest)
-    - [ListOrganizationsResponse](#vitrina-organization-v1-ListOrganizationsResponse)
+- [organization/v1/organization_api.proto](#organization_v1_organization_api-proto)
+    - [GetOrganizationRequest](#organization-v1-GetOrganizationRequest)
+    - [ListOrganizationsRequest](#organization-v1-ListOrganizationsRequest)
+    - [ListOrganizationsResponse](#organization-v1-ListOrganizationsResponse)
   
-    - [PublicOrganizationService](#vitrina-organization-v1-PublicOrganizationService)
+- [organization/v1/api.proto](#organization_v1_api-proto)
+    - [OrganizationService](#organization-v1-OrganizationService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="vitrina_organization_v1_organization-proto"></a>
+<a name="organization_v1_organization-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/organization/v1/organization.proto
+## organization/v1/organization.proto
 
 
 
-<a name="vitrina-organization-v1-PublicOrganization"></a>
+<a name="organization-v1-Organization"></a>
 
-### PublicOrganization
-PublicOrganization は公開 Organization 表現。
+### Organization
+Organization は Organization リソースの公開表現。
 
 
 | Field | Type | Label | Description |
@@ -53,17 +54,17 @@ PublicOrganization は公開 Organization 表現。
 
 
 
-<a name="vitrina_organization_v1_organization_api-proto"></a>
+<a name="organization_v1_organization_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## vitrina/organization/v1/organization_api.proto
+## organization/v1/organization_api.proto
 
 
 
-<a name="vitrina-organization-v1-GetOrganizationRequest"></a>
+<a name="organization-v1-GetOrganizationRequest"></a>
 
 ### GetOrganizationRequest
-GetOrganizationRequest は公開 Organization を取得する。
+GetOrganizationRequest は Organization を取得する。
 
 
 | Field | Type | Label | Description |
@@ -75,10 +76,10 @@ GetOrganizationRequest は公開 Organization を取得する。
 
 
 
-<a name="vitrina-organization-v1-ListOrganizationsRequest"></a>
+<a name="organization-v1-ListOrganizationsRequest"></a>
 
 ### ListOrganizationsRequest
-ListOrganizationsRequest は公開 Organization 一覧を取得する。
+ListOrganizationsRequest は Organization 一覧を取得する。
 
 
 | Field | Type | Label | Description |
@@ -91,7 +92,7 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
 
 
 
-<a name="vitrina-organization-v1-ListOrganizationsResponse"></a>
+<a name="organization-v1-ListOrganizationsResponse"></a>
 
 ### ListOrganizationsResponse
 
@@ -99,7 +100,7 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| organizations | [PublicOrganization](#vitrina-organization-v1-PublicOrganization) | repeated |  |
+| organizations | [Organization](#organization-v1-Organization) | repeated |  |
 | next_page_token | [string](#string) |  |  |
 
 
@@ -112,16 +113,32 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
 
  
 
+ 
 
-<a name="vitrina-organization-v1-PublicOrganizationService"></a>
 
-### PublicOrganizationService
-PublicOrganizationService は read-oriented な公開 Organization API。
+
+<a name="organization_v1_api-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## organization/v1/api.proto
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="organization-v1-OrganizationService"></a>
+
+### OrganizationService
+OrganizationService は Organization API を提供する。
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetOrganization | [GetOrganizationRequest](#vitrina-organization-v1-GetOrganizationRequest) | [PublicOrganization](#vitrina-organization-v1-PublicOrganization) |  |
-| ListOrganizations | [ListOrganizationsRequest](#vitrina-organization-v1-ListOrganizationsRequest) | [ListOrganizationsResponse](#vitrina-organization-v1-ListOrganizationsResponse) |  |
+| GetOrganization | [GetOrganizationRequest](#organization-v1-GetOrganizationRequest) | [Organization](#organization-v1-Organization) |  |
+| ListOrganizations | [ListOrganizationsRequest](#organization-v1-ListOrganizationsRequest) | [ListOrganizationsResponse](#organization-v1-ListOrganizationsResponse) |  |
 
  
 
