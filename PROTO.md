@@ -3,39 +3,39 @@
 
 ## Table of Contents
 
-- [party/kanade/vitrina/v1/event.proto](#party_kanade_vitrina_v1_event-proto)
-    - [PublicEvent](#party-kanade-vitrina-v1-PublicEvent)
-    - [PublicEventSummary](#party-kanade-vitrina-v1-PublicEventSummary)
+- [vitrina/v1/event.proto](#vitrina_v1_event-proto)
+    - [PublicEvent](#vitrina-v1-PublicEvent)
+    - [PublicEventSummary](#vitrina-v1-PublicEventSummary)
   
-- [party/kanade/vitrina/v1/event_api.proto](#party_kanade_vitrina_v1_event_api-proto)
-    - [GetEventRequest](#party-kanade-vitrina-v1-GetEventRequest)
-    - [ListEventsRequest](#party-kanade-vitrina-v1-ListEventsRequest)
-    - [ListEventsResponse](#party-kanade-vitrina-v1-ListEventsResponse)
+- [vitrina/v1/event_api.proto](#vitrina_v1_event_api-proto)
+    - [GetEventRequest](#vitrina-v1-GetEventRequest)
+    - [ListEventsRequest](#vitrina-v1-ListEventsRequest)
+    - [ListEventsResponse](#vitrina-v1-ListEventsResponse)
   
-    - [PublicEventService](#party-kanade-vitrina-v1-PublicEventService)
+    - [PublicEventService](#vitrina-v1-PublicEventService)
   
-- [party/kanade/vitrina/v1/organization.proto](#party_kanade_vitrina_v1_organization-proto)
-    - [PublicOrganization](#party-kanade-vitrina-v1-PublicOrganization)
+- [vitrina/v1/organization.proto](#vitrina_v1_organization-proto)
+    - [PublicOrganization](#vitrina-v1-PublicOrganization)
   
-- [party/kanade/vitrina/v1/organization_api.proto](#party_kanade_vitrina_v1_organization_api-proto)
-    - [GetOrganizationRequest](#party-kanade-vitrina-v1-GetOrganizationRequest)
-    - [ListOrganizationsRequest](#party-kanade-vitrina-v1-ListOrganizationsRequest)
-    - [ListOrganizationsResponse](#party-kanade-vitrina-v1-ListOrganizationsResponse)
+- [vitrina/v1/organization_api.proto](#vitrina_v1_organization_api-proto)
+    - [GetOrganizationRequest](#vitrina-v1-GetOrganizationRequest)
+    - [ListOrganizationsRequest](#vitrina-v1-ListOrganizationsRequest)
+    - [ListOrganizationsResponse](#vitrina-v1-ListOrganizationsResponse)
   
-    - [PublicOrganizationService](#party-kanade-vitrina-v1-PublicOrganizationService)
+    - [PublicOrganizationService](#vitrina-v1-PublicOrganizationService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="party_kanade_vitrina_v1_event-proto"></a>
+<a name="vitrina_v1_event-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## party/kanade/vitrina/v1/event.proto
+## vitrina/v1/event.proto
 
 
 
-<a name="party-kanade-vitrina-v1-PublicEvent"></a>
+<a name="vitrina-v1-PublicEvent"></a>
 
 ### PublicEvent
 PublicEvent は公開 Event 表現。
@@ -55,15 +55,15 @@ PublicEvent は公開 Event 表現。
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | organizer_json | [string](#string) |  |  |
-| parent | [PublicEventSummary](#party-kanade-vitrina-v1-PublicEventSummary) |  |  |
-| children | [PublicEventSummary](#party-kanade-vitrina-v1-PublicEventSummary) | repeated |  |
+| parent | [PublicEventSummary](#vitrina-v1-PublicEventSummary) |  |  |
+| children | [PublicEventSummary](#vitrina-v1-PublicEventSummary) | repeated |  |
 
 
 
 
 
 
-<a name="party-kanade-vitrina-v1-PublicEventSummary"></a>
+<a name="vitrina-v1-PublicEventSummary"></a>
 
 ### PublicEventSummary
 PublicEventSummary は親子関係の 1 階層埋め込み用。
@@ -98,14 +98,14 @@ PublicEventSummary は親子関係の 1 階層埋め込み用。
 
 
 
-<a name="party_kanade_vitrina_v1_event_api-proto"></a>
+<a name="vitrina_v1_event_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## party/kanade/vitrina/v1/event_api.proto
+## vitrina/v1/event_api.proto
 
 
 
-<a name="party-kanade-vitrina-v1-GetEventRequest"></a>
+<a name="vitrina-v1-GetEventRequest"></a>
 
 ### GetEventRequest
 GetEventRequest は公開 Event を取得する。
@@ -120,7 +120,7 @@ GetEventRequest は公開 Event を取得する。
 
 
 
-<a name="party-kanade-vitrina-v1-ListEventsRequest"></a>
+<a name="vitrina-v1-ListEventsRequest"></a>
 
 ### ListEventsRequest
 ListEventsRequest は公開 Event 一覧を取得する。
@@ -136,7 +136,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 
 
-<a name="party-kanade-vitrina-v1-ListEventsResponse"></a>
+<a name="vitrina-v1-ListEventsResponse"></a>
 
 ### ListEventsResponse
 
@@ -144,7 +144,7 @@ ListEventsRequest は公開 Event 一覧を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| events | [PublicEvent](#party-kanade-vitrina-v1-PublicEvent) | repeated |  |
+| events | [PublicEvent](#vitrina-v1-PublicEvent) | repeated |  |
 | next_page_token | [string](#string) |  |  |
 
 
@@ -158,28 +158,28 @@ ListEventsRequest は公開 Event 一覧を取得する。
  
 
 
-<a name="party-kanade-vitrina-v1-PublicEventService"></a>
+<a name="vitrina-v1-PublicEventService"></a>
 
 ### PublicEventService
 PublicEventService は read-oriented な公開 Event API。
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetEvent | [GetEventRequest](#party-kanade-vitrina-v1-GetEventRequest) | [PublicEvent](#party-kanade-vitrina-v1-PublicEvent) |  |
-| ListEvents | [ListEventsRequest](#party-kanade-vitrina-v1-ListEventsRequest) | [ListEventsResponse](#party-kanade-vitrina-v1-ListEventsResponse) |  |
+| GetEvent | [GetEventRequest](#vitrina-v1-GetEventRequest) | [PublicEvent](#vitrina-v1-PublicEvent) |  |
+| ListEvents | [ListEventsRequest](#vitrina-v1-ListEventsRequest) | [ListEventsResponse](#vitrina-v1-ListEventsResponse) |  |
 
  
 
 
 
-<a name="party_kanade_vitrina_v1_organization-proto"></a>
+<a name="vitrina_v1_organization-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## party/kanade/vitrina/v1/organization.proto
+## vitrina/v1/organization.proto
 
 
 
-<a name="party-kanade-vitrina-v1-PublicOrganization"></a>
+<a name="vitrina-v1-PublicOrganization"></a>
 
 ### PublicOrganization
 PublicOrganization は公開 Organization 表現。
@@ -208,14 +208,14 @@ PublicOrganization は公開 Organization 表現。
 
 
 
-<a name="party_kanade_vitrina_v1_organization_api-proto"></a>
+<a name="vitrina_v1_organization_api-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## party/kanade/vitrina/v1/organization_api.proto
+## vitrina/v1/organization_api.proto
 
 
 
-<a name="party-kanade-vitrina-v1-GetOrganizationRequest"></a>
+<a name="vitrina-v1-GetOrganizationRequest"></a>
 
 ### GetOrganizationRequest
 GetOrganizationRequest は公開 Organization を取得する。
@@ -230,7 +230,7 @@ GetOrganizationRequest は公開 Organization を取得する。
 
 
 
-<a name="party-kanade-vitrina-v1-ListOrganizationsRequest"></a>
+<a name="vitrina-v1-ListOrganizationsRequest"></a>
 
 ### ListOrganizationsRequest
 ListOrganizationsRequest は公開 Organization 一覧を取得する。
@@ -246,7 +246,7 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
 
 
 
-<a name="party-kanade-vitrina-v1-ListOrganizationsResponse"></a>
+<a name="vitrina-v1-ListOrganizationsResponse"></a>
 
 ### ListOrganizationsResponse
 
@@ -254,7 +254,7 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| organizations | [PublicOrganization](#party-kanade-vitrina-v1-PublicOrganization) | repeated |  |
+| organizations | [PublicOrganization](#vitrina-v1-PublicOrganization) | repeated |  |
 | next_page_token | [string](#string) |  |  |
 
 
@@ -268,15 +268,15 @@ ListOrganizationsRequest は公開 Organization 一覧を取得する。
  
 
 
-<a name="party-kanade-vitrina-v1-PublicOrganizationService"></a>
+<a name="vitrina-v1-PublicOrganizationService"></a>
 
 ### PublicOrganizationService
 PublicOrganizationService は read-oriented な公開 Organization API。
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetOrganization | [GetOrganizationRequest](#party-kanade-vitrina-v1-GetOrganizationRequest) | [PublicOrganization](#party-kanade-vitrina-v1-PublicOrganization) |  |
-| ListOrganizations | [ListOrganizationsRequest](#party-kanade-vitrina-v1-ListOrganizationsRequest) | [ListOrganizationsResponse](#party-kanade-vitrina-v1-ListOrganizationsResponse) |  |
+| GetOrganization | [GetOrganizationRequest](#vitrina-v1-GetOrganizationRequest) | [PublicOrganization](#vitrina-v1-PublicOrganization) |  |
+| ListOrganizations | [ListOrganizationsRequest](#vitrina-v1-ListOrganizationsRequest) | [ListOrganizationsResponse](#vitrina-v1-ListOrganizationsResponse) |  |
 
  
 
