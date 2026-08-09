@@ -66,7 +66,7 @@ Event は Event リソースの公開表現。
 | event_status | [string](#string) |  |  |
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
-| organizer_json | [string](#string) |  |  |
+| organizer_organization_id | [string](#string) |  | organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。 |
 | parent | [EventSummary](#event-v1-EventSummary) |  |  |
 | children | [EventSummary](#event-v1-EventSummary) | repeated |  |
 
@@ -94,7 +94,7 @@ EventSummary は親子関係の 1 階層埋め込み用。
 | event_status | [string](#string) |  |  |
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
-| organizer_json | [string](#string) |  |  |
+| organizer_organization_id | [string](#string) |  |  |
 
 
 

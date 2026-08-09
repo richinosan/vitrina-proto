@@ -15,7 +15,8 @@ message Event {
   string event_status = 9;
   string image = 10;
   string url = 11;
-  string organizer_json = 12;
+  // organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。
+  string organizer_organization_id = 12;
   EventSummary parent = 14;
   repeated EventSummary children = 15;
 }
@@ -33,5 +34,5 @@ message EventSummary {
   string event_status = 9;
   string image = 10;
   string url = 11;
-  string organizer_json = 12;
+  string organizer_organization_id = 12;
 }
