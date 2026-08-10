@@ -230,6 +230,7 @@ RoleAssignment は Person への Role 割当。
 | role | [string](#string) |  | roles/{id} |
 | scope_type | [RoleAssignmentScopeType](#event-v1-RoleAssignmentScopeType) |  |  |
 | scope | [string](#string) |  | events/{id} または organizations/{id}。SYSTEM scope では未設定。 |
+| person_kebab_identifier | [string](#string) |  | 割当先の kebab identifier(subject)。表示用。他サービスの AuthenticationService.GetUser(users/{person_kebab_identifier}) で プロフィールを解決できる。 |
 
 
 
