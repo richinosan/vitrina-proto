@@ -5,12 +5,20 @@ package event.v1;
 import "event/v1/event.proto";
 
 // GetEventRequest はイベントを取得する。
+//
+// 未認証の場合は Unauthenticated を返す。対象の Event が存在しない場合、
+// または呼び出し元の kebab アカウントが閲覧権限を持たない場合は NotFound を
+// 返す(権限の有無を外部に漏らさないため、権限エラーも NotFound として扱う)。
+// 閲覧権限の判定については EventViewer を参照。
 message GetEventRequest {
   // name は events/{id} 形式。
   string name = 1;
 }
 
 // ListEventsRequest はイベント一覧を取得する。
+//
+// 未認証の場合は Unauthenticated を返す。呼び出し元の kebab アカウントが
+// 閲覧権限を持たない Event は結果に含めない(EventViewer を参照)。
 message ListEventsRequest {
   int32 page_size = 1;
   string page_token = 2;
