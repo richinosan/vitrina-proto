@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package event.v1;
+
+// CallerPermissions は、この Event に対して呼び出し元(リクエストの認証主体)が
+// 持つ権限を表す。Event リソース自体の状態ではなく呼び出し側に依存する情報の
+// ため、キャッシュしてはならない。未認証、または権限を計算していない応答では
+// 省略される(すべて false ではなく未設定)。
+message CallerPermissions {
+  bool can_update = 1;
+  bool can_delete = 2;
+}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package organization.v1;
+
+// CallerPermissions は、この Organization に対して呼び出し元(リクエストの
+// 認証主体)が持つ権限を表す。Organization リソース自体の状態ではなく
+// 呼び出し側に依存する情報のため、キャッシュしてはならない。未認証、または
+// 権限を計算していない応答では省略される(すべて false ではなく未設定)。
+message CallerPermissions {
+  bool can_update = 1;
+  bool can_delete = 2;
+}
