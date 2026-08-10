@@ -36,6 +36,11 @@
     - [RoleAssignmentService](#event-v1-RoleAssignmentService)
     - [RoleService](#event-v1-RoleService)
   
+- [event/v1/event_permission.proto](#event_v1_event_permission-proto)
+    - [EventViewer](#event-v1-EventViewer)
+  
+    - [EventViewPermission](#event-v1-EventViewPermission)
+  
 - [Scalar Value Types](#scalar-value-types)
 
 
@@ -122,6 +127,11 @@ EventSummary は親子関係の 1 階層埋め込み用。
 ### GetEventRequest
 GetEventRequest はイベントを取得する。
 
+未認証の場合は Unauthenticated を返す。対象の Event が存在しない場合、
+または呼び出し元の kebab アカウントが閲覧権限を持たない場合は NotFound を
+返す(権限の有無を外部に漏らさないため、権限エラーも NotFound として扱う)。
+閲覧権限の判定については EventViewer を参照。
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -136,6 +146,9 @@ GetEventRequest はイベントを取得する。
 
 ### ListEventsRequest
 ListEventsRequest はイベント一覧を取得する。
+
+未認証の場合は Unauthenticated を返す。呼び出し元の kebab アカウントが
+閲覧権限を持たない Event は結果に含めない(EventViewer を参照)。
 
 
 | Field | Type | Label | Description |
@@ -473,6 +486,59 @@ RoleService は Role の参照 API を提供する。
 | ----------- | ------------ | ------------- | ------------|
 | GetRole | [GetRoleRequest](#event-v1-GetRoleRequest) | [Role](#event-v1-Role) |  |
 | ListRoles | [ListRolesRequest](#event-v1-ListRolesRequest) | [ListRolesResponse](#event-v1-ListRolesResponse) |  |
+
+ 
+
+
+
+<a name="event_v1_event_permission-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/event_permission.proto
+
+
+
+<a name="event-v1-EventViewer"></a>
+
+### EventViewer
+EventViewer は kebab アカウントと Event の閲覧権限の関係を表す。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| kebab_identifier | [string](#string) |  | kebab の User identifier(subject または username。 AuthenticationService.GetUser(users/{kebab_identifier}) で解決できる)。 |
+| event | [string](#string) |  | events/{id} |
+| permission | [EventViewPermission](#event-v1-EventViewPermission) |  |  |
+
+
+
+
+
+ 
+
+
+<a name="event-v1-EventViewPermission"></a>
+
+### EventViewPermission
+EventViewPermission は kebab アカウントが Event を閲覧できるかどうかを表す。
+
+実際の権限判定は RoleAssignmentService の RoleAssignment
+(scope_type = EVENT かつ scope が対象の Event、または scope_type = SYSTEM)
+を持つ kebab アカウントかどうかで行う。本 enum・EventViewer message は、
+その判定結果を GetEvent / ListEvents の契約として表現するための
+読み取り専用モデルであり、権限の付与・変更は対象外(付与・変更は
+RoleAssignmentService.AssignRole / RevokeRole を使う)。
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| EVENT_VIEW_PERMISSION_UNSPECIFIED | 0 |  |
+| EVENT_VIEW_PERMISSION_NONE | 1 | 閲覧権限なし。GetEvent / ListEvents の結果からは NotFound 扱い、 または一覧から除外される。 |
+| EVENT_VIEW_PERMISSION_VIEWER | 2 | 閲覧権限あり。 |
+
+
+ 
+
+ 
 
  
 
