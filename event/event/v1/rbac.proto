@@ -40,4 +40,8 @@ message RoleAssignment {
   RoleAssignmentScopeType scope_type = 5;
   // events/{id} または organizations/{id}。SYSTEM scope では未設定。
   string scope = 6;
+  // 割当先の kebab identifier(subject)。表示用。他サービスの
+  // AuthenticationService.GetUser(users/{person_kebab_identifier}) で
+  // プロフィールを解決できる。
+  string person_kebab_identifier = 7;
 }
