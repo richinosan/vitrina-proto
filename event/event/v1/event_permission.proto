@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package event.v1;
+
+// EventViewPermission は kebab アカウントが Event を閲覧できるかどうかを表す。
+//
+// 実際の権限判定は RoleAssignmentService の RoleAssignment
+// (scope_type = EVENT かつ scope が対象の Event、または scope_type = SYSTEM)
+// を持つ kebab アカウントかどうかで行う。本 enum・EventViewer message は、
+// その判定結果を GetEvent / ListEvents の契約として表現するための
+// 読み取り専用モデルであり、権限の付与・変更は対象外(付与・変更は
+// RoleAssignmentService.AssignRole / RevokeRole を使う)。
+enum EventViewPermission {
+  EVENT_VIEW_PERMISSION_UNSPECIFIED = 0;
+  // 閲覧権限なし。GetEvent / ListEvents の結果からは NotFound 扱い、
+  // または一覧から除外される。
+  EVENT_VIEW_PERMISSION_NONE = 1;
+  // 閲覧権限あり。
+  EVENT_VIEW_PERMISSION_VIEWER = 2;
+}
+
+// EventViewer は kebab アカウントと Event の閲覧権限の関係を表す。
+message EventViewer {
+  // kebab の User identifier(subject または username。
+  // AuthenticationService.GetUser(users/{kebab_identifier}) で解決できる)。
+  string kebab_identifier = 1;
+  // events/{id}
+  string event = 2;
+  EventViewPermission permission = 3;
+}
