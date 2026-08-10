@@ -10,4 +10,7 @@ message Organization {
   string description = 4;
   string image = 5;
   string url = 6;
+  // schema_api_published が true の場合、
+  // /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。
+  bool schema_api_published = 7;
 }

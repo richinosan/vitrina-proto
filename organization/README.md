@@ -39,6 +39,7 @@ Organization は Organization リソースの公開表現。
 | description | [string](#string) |  |  |
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
+| schema_api_published | [bool](#bool) |  | schema_api_published が true の場合、 /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。 |
 
 
 
