@@ -6,6 +6,9 @@
 - [event/v1/caller_permission.proto](#event_v1_caller_permission-proto)
     - [CallerPermissions](#event-v1-CallerPermissions)
   
+- [event/v1/event_image.proto](#event_v1_event_image-proto)
+    - [EventImages](#event-v1-EventImages)
+  
 - [event/v1/event.proto](#event_v1_event-proto)
     - [Event](#event-v1-Event)
     - [EventSummary](#event-v1-EventSummary)
@@ -83,6 +86,43 @@ CallerPermissions は、この Event に対して呼び出し元(リクエスト
 
 
 
+<a name="event_v1_event_image-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/event_image.proto
+
+
+
+<a name="event-v1-EventImages"></a>
+
+### EventImages
+EventImages は Event の画像バリアント一式。
+ratio_* は Google の構造化データガイドラインに沿った 16:9 / 4:3 / 1:1 の
+切り抜き済み画像で、schema.org 公開 API の image に使われる。
+original は再切り抜き用の元画像で、公開 API には含めない。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| original | [string](#string) |  |  |
+| ratio_16x9 | [string](#string) |  |  |
+| ratio_4x3 | [string](#string) |  |  |
+| ratio_1x1 | [string](#string) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="event_v1_event-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -107,12 +147,12 @@ Event は Event リソースの公開表現。
 | location_json | [string](#string) |  |  |
 | event_attendance_mode | [string](#string) |  |  |
 | event_status | [string](#string) |  |  |
-| image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | organizer_organization_id | [string](#string) |  | organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。 |
 | parent | [EventSummary](#event-v1-EventSummary) |  |  |
 | children | [EventSummary](#event-v1-EventSummary) | repeated |  |
 | caller_permissions | [CallerPermissions](#event-v1-CallerPermissions) |  | GetEvent/ListEvents の呼び出し元からみた権限。呼び出し側に依存する情報の ため、Event の一部としてキャッシュしてはならない。 |
+| images | [EventImages](#event-v1-EventImages) |  |  |
 
 
 
@@ -136,9 +176,9 @@ EventSummary は親子関係の 1 階層埋め込み用。
 | location_json | [string](#string) |  |  |
 | event_attendance_mode | [string](#string) |  |  |
 | event_status | [string](#string) |  |  |
-| image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | organizer_organization_id | [string](#string) |  |  |
+| images | [EventImages](#event-v1-EventImages) |  |  |
 
 
 
