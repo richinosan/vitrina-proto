@@ -6,6 +6,10 @@
 - [organization/v1/caller_permission.proto](#organization_v1_caller_permission-proto)
     - [CallerPermissions](#organization-v1-CallerPermissions)
   
+- [organization/v1/organization_image.proto](#organization_v1_organization_image-proto)
+    - [OrganizationImages](#organization-v1-OrganizationImages)
+    - [OrganizationLogo](#organization-v1-OrganizationLogo)
+  
 - [organization/v1/organization.proto](#organization_v1_organization-proto)
     - [Organization](#organization-v1-Organization)
   
@@ -56,6 +60,58 @@ CallerPermissions は、この Organization に対して呼び出し元(リク�
 
 
 
+<a name="organization_v1_organization_image-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## organization/v1/organization_image.proto
+
+
+
+<a name="organization-v1-OrganizationImages"></a>
+
+### OrganizationImages
+OrganizationImages は Organization の画像バリアント一式。
+ratio_* は 16:9 / 1:1 の切り抜き済み画像で、schema.org 公開 API の image
+に使われる。original は再切り抜き用の元画像で、公開 API には含めない。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| original | [string](#string) |  |  |
+| ratio_16x9 | [string](#string) |  |  |
+| ratio_1x1 | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="organization-v1-OrganizationLogo"></a>
+
+### OrganizationLogo
+OrganizationLogo は Organization のロゴ画像。size_512x512 は
+schema.org 公開 API の logo に使われる固定ピクセルサイズの画像。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| original | [string](#string) |  |  |
+| size_512x512 | [string](#string) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="organization_v1_organization-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -75,10 +131,11 @@ Organization は Organization リソースの公開表現。
 | schema_type | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
-| image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | schema_api_published | [bool](#bool) |  | schema_api_published が true の場合、 /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。 |
 | caller_permissions | [CallerPermissions](#organization-v1-CallerPermissions) |  | GetOrganization/ListOrganizations の呼び出し元からみた権限。呼び出し側に 依存する情報のため、Organization の一部としてキャッシュしてはならない。 |
+| images | [OrganizationImages](#organization-v1-OrganizationImages) |  |  |
+| logo | [OrganizationLogo](#organization-v1-OrganizationLogo) |  |  |
 
 
 
