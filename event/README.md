@@ -3,6 +3,9 @@
 
 ## Table of Contents
 
+- [event/v1/caller_permission.proto](#event_v1_caller_permission-proto)
+    - [CallerPermissions](#event-v1-CallerPermissions)
+  
 - [event/v1/event.proto](#event_v1_event-proto)
     - [Event](#event-v1-Event)
     - [EventSummary](#event-v1-EventSummary)
@@ -45,6 +48,41 @@
 
 
 
+<a name="event_v1_caller_permission-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event/v1/caller_permission.proto
+
+
+
+<a name="event-v1-CallerPermissions"></a>
+
+### CallerPermissions
+CallerPermissions は、この Event に対して呼び出し元(リクエストの認証主体)が
+持つ権限を表す。Event リソース自体の状態ではなく呼び出し側に依存する情報の
+ため、キャッシュしてはならない。未認証、または権限を計算していない応答では
+省略される(すべて false ではなく未設定)。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| can_update | [bool](#bool) |  |  |
+| can_delete | [bool](#bool) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="event_v1_event-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -74,6 +112,7 @@ Event は Event リソースの公開表現。
 | organizer_organization_id | [string](#string) |  | organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。 |
 | parent | [EventSummary](#event-v1-EventSummary) |  |  |
 | children | [EventSummary](#event-v1-EventSummary) | repeated |  |
+| caller_permissions | [CallerPermissions](#event-v1-CallerPermissions) |  | GetEvent/ListEvents の呼び出し元からみた権限。呼び出し側に依存する情報の ため、Event の一部としてキャッシュしてはならない。 |
 
 
 
