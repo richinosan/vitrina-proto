@@ -3,14 +3,17 @@ syntax = "proto3";
 package organization.v1;
 
 import "organization/v1/caller_permission.proto";
+import "organization/v1/organization_image.proto";
 
 // Organization は Organization リソースの公開表現。
 message Organization {
+  reserved 5;
+  reserved "image";
+
   string id = 1;
   string schema_type = 2;
   string name = 3;
   string description = 4;
-  string image = 5;
   string url = 6;
   // schema_api_published が true の場合、
   // /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。
@@ -18,4 +21,6 @@ message Organization {
   // GetOrganization/ListOrganizations の呼び出し元からみた権限。呼び出し側に
   // 依存する情報のため、Organization の一部としてキャッシュしてはならない。
   CallerPermissions caller_permissions = 9;
+  OrganizationImages images = 10;
+  OrganizationLogo logo = 11;
 }

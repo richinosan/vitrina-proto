@@ -3,9 +3,13 @@ syntax = "proto3";
 package event.v1;
 
 import "event/v1/caller_permission.proto";
+import "event/v1/event_image.proto";
 
 // Event は Event リソースの公開表現。
 message Event {
+  reserved 10;
+  reserved "image";
+
   string id = 1;
   string schema_type = 2;
   string name = 3;
@@ -15,7 +19,6 @@ message Event {
   string location_json = 7;
   string event_attendance_mode = 8;
   string event_status = 9;
-  string image = 10;
   string url = 11;
   // organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。
   string organizer_organization_id = 12;
@@ -24,10 +27,14 @@ message Event {
   // GetEvent/ListEvents の呼び出し元からみた権限。呼び出し側に依存する情報の
   // ため、Event の一部としてキャッシュしてはならない。
   CallerPermissions caller_permissions = 17;
+  EventImages images = 18;
 }
 
 // EventSummary は親子関係の 1 階層埋め込み用。
 message EventSummary {
+  reserved 10;
+  reserved "image";
+
   string id = 1;
   string schema_type = 2;
   string name = 3;
@@ -37,7 +44,7 @@ message EventSummary {
   string location_json = 7;
   string event_attendance_mode = 8;
   string event_status = 9;
-  string image = 10;
   string url = 11;
   string organizer_organization_id = 12;
+  EventImages images = 13;
 }
