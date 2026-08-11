@@ -3,6 +3,9 @@
 
 ## Table of Contents
 
+- [organization/v1/caller_permission.proto](#organization_v1_caller_permission-proto)
+    - [CallerPermissions](#organization-v1-CallerPermissions)
+  
 - [organization/v1/organization.proto](#organization_v1_organization-proto)
     - [Organization](#organization-v1-Organization)
   
@@ -15,6 +18,41 @@
     - [OrganizationService](#organization-v1-OrganizationService)
   
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="organization_v1_caller_permission-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## organization/v1/caller_permission.proto
+
+
+
+<a name="organization-v1-CallerPermissions"></a>
+
+### CallerPermissions
+CallerPermissions は、この Organization に対して呼び出し元(リクエストの
+認証主体)が持つ権限を表す。Organization リソース自体の状態ではなく
+呼び出し側に依存する情報のため、キャッシュしてはならない。未認証、または
+権限を計算していない応答では省略される(すべて false ではなく未設定)。
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| can_update | [bool](#bool) |  |  |
+| can_delete | [bool](#bool) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
 
 
 
@@ -40,6 +78,7 @@ Organization は Organization リソースの公開表現。
 | image | [string](#string) |  |  |
 | url | [string](#string) |  |  |
 | schema_api_published | [bool](#bool) |  | schema_api_published が true の場合、 /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。 |
+| caller_permissions | [CallerPermissions](#organization-v1-CallerPermissions) |  | GetOrganization/ListOrganizations の呼び出し元からみた権限。呼び出し側に 依存する情報のため、Organization の一部としてキャッシュしてはならない。 |
 
 
 
