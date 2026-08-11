@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package organization.v1;
+
+// OrganizationImages は Organization の画像バリアント一式。
+// ratio_* は 16:9 / 1:1 の切り抜き済み画像で、schema.org 公開 API の image
+// に使われる。original は再切り抜き用の元画像で、公開 API には含めない。
+message OrganizationImages {
+  string original = 1;
+  string ratio_16x9 = 2;
+  string ratio_1x1 = 3;
+}
+
+// OrganizationLogo は Organization のロゴ画像。size_512x512 は
+// schema.org 公開 API の logo に使われる固定ピクセルサイズの画像。
+message OrganizationLogo {
+  string original = 1;
+  string size_512x512 = 2;
+}

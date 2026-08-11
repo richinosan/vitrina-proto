@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package event.v1;
+
+// EventImages は Event の画像バリアント一式。
+// ratio_* は Google の構造化データガイドラインに沿った 16:9 / 4:3 / 1:1 の
+// 切り抜き済み画像で、schema.org 公開 API の image に使われる。
+// original は再切り抜き用の元画像で、公開 API には含めない。
+message EventImages {
+  string original = 1;
+  string ratio_16x9 = 2;
+  string ratio_4x3 = 3;
+  string ratio_1x1 = 4;
+}
