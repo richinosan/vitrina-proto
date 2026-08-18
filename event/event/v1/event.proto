@@ -10,6 +10,8 @@ message Event {
   reserved 10;
   reserved "image";
 
+  // id はサーバーが発行する不変のサロゲートキー (ULID)。
+  // schema.org 公開 URL には使わない。画面にも出さない。
   string id = 1;
   string schema_type = 2;
   string name = 3;
@@ -21,6 +23,7 @@ message Event {
   string event_status = 9;
   string url = 11;
   // organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。
+  // {id} は Organization のサロゲートキー (ULID)。
   string organizer_organization_id = 12;
   EventSummary parent = 14;
   repeated EventSummary children = 15;
@@ -28,6 +31,10 @@ message Event {
   // ため、Event の一部としてキャッシュしてはならない。
   CallerPermissions caller_permissions = 17;
   EventImages images = 18;
+  // alias は利用者が指定するナチュラルキー。
+  // schema.org / ICS の公開パス `/v1/schema.org/event/{alias}` および
+  // `/v1/calendar/event/{alias}` に使う。画面の表示・入力もこの値を使う。
+  string alias = 19;
 }
 
 // EventSummary は親子関係の 1 階層埋め込み用。
@@ -35,6 +42,7 @@ message EventSummary {
   reserved 10;
   reserved "image";
 
+  // id はサロゲートキー (ULID)。
   string id = 1;
   string schema_type = 2;
   string name = 3;
@@ -47,4 +55,6 @@ message EventSummary {
   string url = 11;
   string organizer_organization_id = 12;
   EventImages images = 13;
+  // alias は公開パスと画面表示用のナチュラルキー。
+  string alias = 14;
 }

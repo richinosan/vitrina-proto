@@ -6,7 +6,9 @@ import "organization/v1/organization.proto";
 
 // GetOrganizationRequest は Organization を取得する。
 message GetOrganizationRequest {
-  // name は organizations/{id} 形式。
+  // name は organizations/{id} 形式。{id} はサロゲートキー (ULID)。
+  // 管理画面の公開パス用に、同一形式で alias も受け付ける。
+  // 解決は id を優先し、一致する行がなければ alias で探す。
   string name = 1;
 }
 
