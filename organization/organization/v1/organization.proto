@@ -10,17 +10,23 @@ message Organization {
   reserved 5;
   reserved "image";
 
+  // id はサーバーが発行する不変のサロゲートキー (ULID)。
+  // schema.org 公開 URL には使わない。画面にも出さない。
   string id = 1;
   string schema_type = 2;
   string name = 3;
   string description = 4;
   string url = 6;
   // schema_api_published が true の場合、
-  // /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。
+  // /v1/schema.org/organization/{alias} で schema.org 準拠の JSON-LD を公開する。
   bool schema_api_published = 7;
   // GetOrganization/ListOrganizations の呼び出し元からみた権限。呼び出し側に
   // 依存する情報のため、Organization の一部としてキャッシュしてはならない。
   CallerPermissions caller_permissions = 9;
   OrganizationImages images = 10;
   OrganizationLogo logo = 11;
+  // alias は利用者が指定するナチュラルキー。
+  // schema.org / ICS の公開パス `/v1/schema.org/organization/{alias}` および
+  // `/v1/calendar/org/{alias}` に使う。画面の表示・入力もこの値を使う。
+  string alias = 12;
 }
