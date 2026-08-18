@@ -11,7 +11,9 @@ import "event/v1/event.proto";
 // 返す(権限の有無を外部に漏らさないため、権限エラーも NotFound として扱う)。
 // 閲覧権限の判定については EventViewer を参照。
 message GetEventRequest {
-  // name は events/{id} 形式。
+  // name は events/{id} 形式。{id} はサロゲートキー (ULID)。
+  // 管理画面の公開パス用に、同一形式で alias も受け付ける。
+  // 解決は id を優先し、一致する行がなければ alias で探す。
   string name = 1;
 }
 
