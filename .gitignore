@@ -1,2 +1,4 @@
 tmp
 mise.local.toml
+.cursor/skills/verify-vitrina-proto/evidence/*/
+!.cursor/skills/verify-vitrina-proto/evidence/README.md
