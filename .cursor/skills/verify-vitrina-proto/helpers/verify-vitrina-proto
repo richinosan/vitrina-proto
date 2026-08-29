@@ -1,0 +1,283 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+SKILL_DIR="$ROOT/.cursor/skills/verify-vitrina-proto"
+HELPERS_DIR="$SKILL_DIR/helpers"
+EVIDENCE_ROOT="$SKILL_DIR/evidence"
+SCRATCH_ROOT="${TMPDIR:-/tmp}"
+
+usage() {
+  cat <<'EOF'
+Usage: verify-vitrina-proto <command> [args]
+
+Commands:
+  launch                 Install mise tools for verification
+  doctor                 Read-only health check
+  drive <feature-id>     Drive one mapped feature and write evidence
+  evidence-path          Print the evidence directory for the current run
+  cleanup                Remove scratch state; evidence is kept
+  help                   Show this message
+
+Environment:
+  VITRINA_VERIFY_RUN_ID  Run identifier (default: generated timestamp)
+EOF
+}
+
+require_repo_root() {
+  if [[ ! -f "$ROOT/buf.yaml" ]]; then
+    echo "error: expected repo root with buf.yaml at $ROOT" >&2
+    exit 1
+  fi
+}
+
+run_id() {
+  if [[ -n "${VITRINA_VERIFY_RUN_ID:-}" ]]; then
+    printf '%s' "$VITRINA_VERIFY_RUN_ID"
+    return
+  fi
+  date -u +%Y%m%dT%H%M%SZ
+}
+
+evidence_dir() {
+  printf '%s/%s' "$EVIDENCE_ROOT" "$(run_id)"
+}
+
+scratch_dir() {
+  printf '%s/vitrina-proto-verify-%s' "$SCRATCH_ROOT" "$(run_id)"
+}
+
+mise_exec() {
+  require_repo_root
+  if ! command -v mise >/dev/null 2>&1; then
+    echo "error: mise is not on PATH" >&2
+    exit 1
+  fi
+  mise exec -- "$@"
+}
+
+write_meta() {
+  local feature_id="$1"
+  local evidence="$2"
+  mkdir -p "$evidence"
+  cat >"$evidence/run.meta.json" <<EOF
+{
+  "run_id": "$(run_id)",
+  "feature_id": "$feature_id",
+  "repo_root": "$ROOT",
+  "created_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+}
+EOF
+}
+
+capture_command() {
+  local evidence="$1"
+  local name="$2"
+  shift 2
+  mkdir -p "$evidence"
+  {
+    printf '$ '
+    printf '%q ' "$@"
+    printf '\n\n'
+  } >"$evidence/$name.cmd.txt"
+  if "$@" >"$evidence/$name.stdout.txt" 2>"$evidence/$name.stderr.txt"; then
+    printf '0\n' >"$evidence/$name.exit.txt"
+  else
+    local code=$?
+    printf '%s\n' "$code" >"$evidence/$name.exit.txt"
+    return "$code"
+  fi
+}
+
+assert_exit_zero() {
+  local evidence="$1"
+  local name="$2"
+  local code
+  code="$(cat "$evidence/$name.exit.txt")"
+  if [[ "$code" != "0" ]]; then
+    echo "error: $name failed with exit code $code" >&2
+    echo "stderr:" >&2
+    cat "$evidence/$name.stderr.txt" >&2 || true
+    exit 1
+  fi
+}
+
+cmd_launch() {
+  require_repo_root
+  if ! command -v mise >/dev/null 2>&1; then
+    echo "error: mise is not on PATH" >&2
+    exit 1
+  fi
+  mise trust >/dev/null 2>&1 || true
+  mise install
+  echo "launch: mise tools installed"
+}
+
+cmd_doctor() {
+  require_repo_root
+  local failures=0
+
+  check() {
+    local label="$1"
+    shift
+    if "$@"; then
+      printf 'ok   %s\n' "$label"
+    else
+      printf 'fail %s\n' "$label"
+      failures=$((failures + 1))
+    fi
+  }
+
+  check "repo root contains buf.yaml" test -f "$ROOT/buf.yaml"
+  check "event module exists" test -d "$ROOT/event"
+  check "organization module exists" test -d "$ROOT/organization"
+  check "mise is available" command -v mise
+  check "buf is available via mise" mise_exec buf --version
+  check "protoc-gen-doc is available via mise" mise_exec protoc-gen-doc --version
+  check "helper script is executable" test -x "$HELPERS_DIR/verify-vitrina-proto"
+
+  if [[ "$failures" -gt 0 ]]; then
+    echo "doctor: $failures check(s) failed" >&2
+    exit 1
+  fi
+
+  echo "doctor: ready"
+}
+
+drive_lint_proto() {
+  local evidence="$1"
+  write_meta "lint-proto" "$evidence"
+  capture_command "$evidence" lint mise run lint
+  assert_exit_zero "$evidence" lint
+  cp "$ROOT/buf.yaml" "$evidence/buf.yaml.snapshot"
+}
+
+drive_generate_docs() {
+  local evidence="$1"
+  local scratch
+  scratch="$(scratch_dir)"
+  mkdir -p "$scratch"
+  write_meta "generate-docs" "$evidence"
+
+  cp "$ROOT/event/README.md" "$scratch/event.README.before.md"
+  cp "$ROOT/organization/README.md" "$scratch/organization.README.before.md"
+
+  capture_command "$evidence" docs mise run docs
+  assert_exit_zero "$evidence" docs
+
+  if cmp -s "$scratch/event.README.before.md" "$ROOT/event/README.md" \
+    && cmp -s "$scratch/organization.README.before.md" "$ROOT/organization/README.md"; then
+    echo "ok: generated docs match committed README files" >"$evidence/docs.up-to-date.txt"
+  else
+    echo "drift: generated docs differ from committed README files" >"$evidence/docs.up-to-date.txt"
+    git diff -- event/README.md organization/README.md >"$evidence/docs.diff.patch" || true
+  fi
+}
+
+drive_breaking_check() {
+  local evidence="$1"
+  write_meta "breaking-check" "$evidence"
+  if git ls-tree -r --name-only origin/main 2>/dev/null | grep -q '\.proto$'; then
+    capture_command "$evidence" breaking mise run breaking
+    assert_exit_zero "$evidence" breaking
+    printf 'ran\n' >"$evidence/breaking.mode.txt"
+  else
+    printf 'skipped: origin/main has no .proto files\n' >"$evidence/breaking.mode.txt"
+  fi
+}
+
+drive_event_contract() {
+  local evidence="$1"
+  local scratch image
+  scratch="$(scratch_dir)"
+  image="$scratch/event.binpb"
+  mkdir -p "$scratch"
+  write_meta "event-contract" "$evidence"
+
+  capture_command "$evidence" build mise exec -- buf build event -o "$image"
+  assert_exit_zero "$evidence" build
+  capture_command "$evidence" image-size wc -c "$image"
+  assert_exit_zero "$evidence" image-size
+
+  rg -n 'service EventService|rpc GetEvent|rpc ListEvents' "$ROOT/event/event/v1/api.proto" \
+    >"$evidence/event-service.rpcs.txt"
+}
+
+drive_organization_contract() {
+  local evidence="$1"
+  local scratch image
+  scratch="$(scratch_dir)"
+  image="$scratch/organization.binpb"
+  mkdir -p "$scratch"
+  write_meta "organization-contract" "$evidence"
+
+  capture_command "$evidence" build mise exec -- buf build organization -o "$image"
+  assert_exit_zero "$evidence" build
+  capture_command "$evidence" image-size wc -c "$image"
+  assert_exit_zero "$evidence" image-size
+
+  rg -n 'service OrganizationService|rpc GetOrganization|rpc ListOrganizations' \
+    "$ROOT/organization/organization/v1/api.proto" \
+    >"$evidence/organization-service.rpcs.txt"
+}
+
+cmd_drive() {
+  local feature_id="${1:-}"
+  local evidence
+  evidence="$(evidence_dir)"
+
+  if [[ -z "$feature_id" ]]; then
+    echo "error: feature id required" >&2
+    usage >&2
+    exit 1
+  fi
+
+  cmd_doctor
+
+  case "$feature_id" in
+    lint-proto) drive_lint_proto "$evidence" ;;
+    generate-docs) drive_generate_docs "$evidence" ;;
+    breaking-check) drive_breaking_check "$evidence" ;;
+    event-contract) drive_event_contract "$evidence" ;;
+    organization-contract) drive_organization_contract "$evidence" ;;
+    *)
+      echo "error: unknown feature id: $feature_id" >&2
+      exit 1
+      ;;
+  esac
+
+  printf 'evidence: %s\n' "$evidence"
+}
+
+cmd_cleanup() {
+  local scratch
+  scratch="$(scratch_dir)"
+  if [[ -d "$scratch" ]]; then
+    rm -rf "$scratch"
+    echo "cleanup: removed $scratch"
+  else
+    echo "cleanup: no scratch directory at $scratch"
+  fi
+  echo "cleanup: evidence kept at $(evidence_dir)"
+}
+
+main() {
+  local command="${1:-help}"
+  shift || true
+
+  case "$command" in
+    launch) cmd_launch "$@" ;;
+    doctor) cmd_doctor "$@" ;;
+    drive) cmd_drive "$@" ;;
+    evidence-path) evidence_dir ;;
+    cleanup) cmd_cleanup "$@" ;;
+    help|-h|--help) usage ;;
+    *)
+      echo "error: unknown command: $command" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
