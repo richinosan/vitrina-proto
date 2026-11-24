@@ -138,7 +138,7 @@ Event は Event リソースの公開表現。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
+| id | [string](#string) |  | id はサーバーが発行する不変のサロゲートキー (ULID)。 schema.org 公開 URL には使わない。画面にも出さない。 |
 | schema_type | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
@@ -148,11 +148,12 @@ Event は Event リソースの公開表現。
 | event_attendance_mode | [string](#string) |  |  |
 | event_status | [string](#string) |  |  |
 | url | [string](#string) |  |  |
-| organizer_organization_id | [string](#string) |  | organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。 |
+| organizer_organization_id | [string](#string) |  | organizer として紐付ける Organization の id (organizations/{id} の {id} 部分)。 {id} は Organization のサロゲートキー (ULID)。 |
 | parent | [EventSummary](#event-v1-EventSummary) |  |  |
 | children | [EventSummary](#event-v1-EventSummary) | repeated |  |
 | caller_permissions | [CallerPermissions](#event-v1-CallerPermissions) |  | GetEvent/ListEvents の呼び出し元からみた権限。呼び出し側に依存する情報の ため、Event の一部としてキャッシュしてはならない。 |
 | images | [EventImages](#event-v1-EventImages) |  |  |
+| alias | [string](#string) |  | alias は利用者が指定するナチュラルキー。 schema.org / ICS の公開パス `/v1/schema.org/event/{alias}` および `/v1/calendar/event/{alias}` に使う。画面の表示・入力もこの値を使う。 |
 
 
 
@@ -167,7 +168,7 @@ EventSummary は親子関係の 1 階層埋め込み用。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
+| id | [string](#string) |  | id はサロゲートキー (ULID)。 |
 | schema_type | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
@@ -179,6 +180,7 @@ EventSummary は親子関係の 1 階層埋め込み用。
 | url | [string](#string) |  |  |
 | organizer_organization_id | [string](#string) |  |  |
 | images | [EventImages](#event-v1-EventImages) |  |  |
+| alias | [string](#string) |  | alias は公開パスと画面表示用のナチュラルキー。 |
 
 
 
@@ -214,7 +216,7 @@ GetEventRequest はイベントを取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  | name は events/{id} 形式。 |
+| name | [string](#string) |  | name は events/{id} 形式。{id} はサロゲートキー (ULID)。 管理画面の公開パス用に、同一形式で alias も受け付ける。 解決は id を優先し、一致する行がなければ alias で探す。 |
 
 
 
