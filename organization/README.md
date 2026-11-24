@@ -127,15 +127,16 @@ Organization は Organization リソースの公開表現。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
+| id | [string](#string) |  | id はサーバーが発行する不変のサロゲートキー (ULID)。 schema.org 公開 URL には使わない。画面にも出さない。 |
 | schema_type | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | url | [string](#string) |  |  |
-| schema_api_published | [bool](#bool) |  | schema_api_published が true の場合、 /v1/schema.org/organization/{id} で schema.org 準拠の JSON-LD を公開する。 |
+| schema_api_published | [bool](#bool) |  | schema_api_published が true の場合、 /v1/schema.org/organization/{alias} で schema.org 準拠の JSON-LD を公開する。 |
 | caller_permissions | [CallerPermissions](#organization-v1-CallerPermissions) |  | GetOrganization/ListOrganizations の呼び出し元からみた権限。呼び出し側に 依存する情報のため、Organization の一部としてキャッシュしてはならない。 |
 | images | [OrganizationImages](#organization-v1-OrganizationImages) |  |  |
 | logo | [OrganizationLogo](#organization-v1-OrganizationLogo) |  |  |
+| alias | [string](#string) |  | alias は利用者が指定するナチュラルキー。 schema.org / ICS の公開パス `/v1/schema.org/organization/{alias}` および `/v1/calendar/org/{alias}` に使う。画面の表示・入力もこの値を使う。 |
 
 
 
@@ -166,7 +167,7 @@ GetOrganizationRequest は Organization を取得する。
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  | name は organizations/{id} 形式。 |
+| name | [string](#string) |  | name は organizations/{id} 形式。{id} はサロゲートキー (ULID)。 管理画面の公開パス用に、同一形式で alias も受け付ける。 解決は id を優先し、一致する行がなければ alias で探す。 |
 
 
 
